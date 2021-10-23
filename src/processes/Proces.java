@@ -47,11 +47,11 @@ public class Proces {
                 Memorija.load(this);
                 //MemorijskaParticija mp = SljedeciOdgovarajuci.ucitajProces(this);
                 //this.particija = mp;
-                if(Memorija.load(this) != false)
+                if(Memorija.load(this))
                     loaded = true;
             }
             if(Memorija.getRunning_proces() == null)
-               ProcessScheduler.schedule();
+               ProcesScheduler.schedule();
         }
         public void exit() {
             this.state = "TERMINATED";
@@ -74,14 +74,14 @@ public class Proces {
                     System.out.println("\tPID: "+runningProcess.pid);
                     System.out.println("\tName: "+runningProcess.name);
                     System.out.println("\tState: "+runningProcess.state);
-                    System.out.println("\tSize: "+runningProcess.size);
+                    System.out.println("\tSize: "+runningProcess.velicina);
                 }
                 if(!readyProcesses.isEmpty()) {
                     for(Proces proces : readyProcesses) {
                         System.out.println("\tPID: "+ proces.pid);
                         System.out.println("\tName: "+ proces.name);
                         System.out.println("\tState: "+ proces.state);
-                        System.out.println("\tSize: "+ proces.size);
+                        System.out.println("\tSize: "+ proces.velicina);
                     }
                 }
                 System.out.println();
@@ -96,21 +96,7 @@ public class Proces {
         public void setState(String state) {
             this.state=state;
         }
-        public ArrayList<String> getPageTable(){
-            return pageTable;
-        }
-        public ArrayList<Page> getPages(){
-            return pages;
-        }
-        public void addToPageTable(String frameNumber) {
-            pageTable.add(frameNumber);
-        }
-        public void printPT() {
-            System.out.println(pageTable);
-        }
-        public void printPages() {
-            System.out.println(pages);
-        }
+
         public int getVelicina(){
             return velicina;
         }
