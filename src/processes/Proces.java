@@ -17,7 +17,7 @@ public class Proces {
         private String state;
         private int programCounter;
         private int velicina;
-        private String name;
+        private String naziv;
         private ArrayList<String> codeAndData;
 
         private String file;
@@ -27,7 +27,7 @@ public class Proces {
             state = "NEW";
             programCounter = 0;
             this.codeAndData = codeAndData;
-            this.name = name;
+            this.naziv = name;
             this.file = file;
             velicina = codeAndData.size()*16;
             processes.add(this);
@@ -72,14 +72,14 @@ public class Proces {
                 System.out.println("List of processes:");
                 if(runningProcess != null) {
                     System.out.println("\tPID: "+runningProcess.pid);
-                    System.out.println("\tName: "+runningProcess.name);
+                    System.out.println("\tName: "+runningProcess.naziv);
                     System.out.println("\tState: "+runningProcess.state);
                     System.out.println("\tSize: "+runningProcess.velicina);
                 }
                 if(!readyProcesses.isEmpty()) {
                     for(Proces proces : readyProcesses) {
                         System.out.println("\tPID: "+ proces.pid);
-                        System.out.println("\tName: "+ proces.name);
+                        System.out.println("\tName: "+ proces.naziv);
                         System.out.println("\tState: "+ proces.state);
                         System.out.println("\tSize: "+ proces.velicina);
                     }
@@ -99,6 +99,9 @@ public class Proces {
 
         public int getVelicina(){
             return velicina;
+        }
+        public String getNaziv(){
+            return naziv;
         }
         public MemorijskaParticija getParticija(){
             return particija;

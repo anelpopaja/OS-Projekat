@@ -19,34 +19,20 @@ public class SljedeciOdgovarajuci {
             }
 
         if(odgovarajuci_indeks != -1) {
-            proces.ucitavanjeProcesa(Memorija.getParticije().get(odgovarajuci_indeks));
 
-            /*
-                public boolean ucitavanjeProcesa(int indexParticije) {
-                    this.particija = Memorija.zauzmiParticiju(indexParticije, this);
-                    if(particija == null)
-                        return false;
-                    return true;
-                    }
-
-                    public boolean ucitavanjeProcesa(MemorijskaParticija particija) {
-                        this.particija = particija;
-                        particija.zauzmiMemoriju(this);
-                        if(this.particija == null)
-                            return false;
-                        return true;
-                }
-                */
-            return Memorija.getParticije().get(odgovarajuci_indeks);
+            MemorijskaParticija particija_procesa = Memorija.zauzmiParticiju(odgovarajuci_indeks, proces);
+            Memorija.razdvojiParticije(odgovarajuci_indeks);
+            return particija_procesa;
         }
-
+        //Ako je prvi proces
         if(odgovarajuceParticije.size() > 0) {
-            pokazivac = Memorija.getParticije().indexOf(odgovarajuceParticije.get(0));
-            proces.ucitavanjeProcesa(Memorija.getParticije().get(pokazivac));
-            return Memorija.getParticije().get(pokazivac);
+            MemorijskaParticija particija_procesa = Memorija.zauzmiParticiju(0, proces);
+            Memorija.razdvojiParticije(0);
+            return particija_procesa;
         }
-
+        //TODO
         // nema slobodnih memorijskih particija, sada posmatramo dovoljno velike particije koje nisu slobodne
+        /*
         odgovarajuceParticije = MemorijskaParticija.getOdgovarajuceParticije(proces);
         for(MemorijskaParticija mp: odgovarajuceParticije)
             if(Memorija.getParticije().indexOf(mp) > pokazivac) {
@@ -66,8 +52,8 @@ public class SljedeciOdgovarajuci {
             return Memorija.getParticije().get(pokazivac);
         }
 
+    */
         return null;
 
     }
-
 }

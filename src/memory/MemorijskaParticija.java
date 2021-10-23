@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class MemorijskaParticija {
     private Proces proces;
-    private int VELICINA;
+    private final int VELICINA;
     private int zauzeto;
 
 
@@ -77,8 +77,6 @@ public class MemorijskaParticija {
         String nazivProcesa = (proces==null) ? "N.P." : proces.getNaziv();
         return String.format("Naziv procesa: %s; velicina: %d; (zauzeto: %d; slobodno: %d)", nazivProcesa, VELICINA, zauzeto, VELICINA - zauzeto);
     }
-
-
 
 
 

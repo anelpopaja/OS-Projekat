@@ -11,7 +11,7 @@ public class Memorija {
     private static int zauzeto;
     private static ArrayList<MemorijskaParticija> particije;
     private static Queue<Proces> readyQueue = new LinkedList<>();
-    private static Proces running_process = null;;
+    private static Proces running_process = null;
 
     public static void init(){
         VELICINA = 4096;
@@ -119,11 +119,15 @@ public class Memorija {
     public static Proces getRunning_proces(){
         return running_process;
     }
-    public static Queue<Proces> getReadyQueue(){
-        return readyQueue;
-    }
     public static void removeRunningProcess() {
         running_process=null;
     }
+    public static void setRunning_process(Proces proces){
+        running_process = proces;
+    }
+    public static Queue<Proces> getReadyQueue(){
+        return readyQueue;
+    }
+
 
 }
