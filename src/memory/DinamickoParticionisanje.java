@@ -1,5 +1,7 @@
 package memory;
 
+import processes.Proces;
+
 import java.util.ArrayList;
 
 public class DinamickoParticionisanje {

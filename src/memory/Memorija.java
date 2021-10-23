@@ -1,11 +1,17 @@
 package memory;
 
+import processes.Proces;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Memorija {
     private static int VELICINA;
     private static int zauzeto;
     private static ArrayList<MemorijskaParticija> particije;
+    private static Queue<Proces> readyQueue = new LinkedList<>();
+    private static Proces running_process = null;;
 
     public static void init(){
         VELICINA = 4096;
@@ -22,12 +28,7 @@ public class Memorija {
         return true;
     }
 
-    public static int getVelicina() {
-        return VELICINA;
-    }
-    public static ArrayList<MemorijskaParticija> getParticije(){
-        return particije;
-    }
+
 
     public static boolean spojiSlobodneParticije(int i){
         if(i>0 && particije.get(i-1).getProces() == null){
@@ -71,11 +72,20 @@ public class Memorija {
         return particije.get(index).zauzmiMemoriju(proces);
     }
 
-    public static synchronized boolean load(Process process){
+    public static synchronized boolean load(Proces proces){
 
+        MemorijskaParticija mp = SljedeciOdgovarajuci.ucitajProces(proces);
+        if(mp == null)
+            return false;
+        proces.setParticija(mp);
+        readyQueue.add(proces);
+        proces.setState("READY");
+        return true;
     }
 
-
+    public static void remove(Proces proces) {
+        proces.getParticija().oslobodiMemoriju();
+    }
 
 
     public static String info() {
@@ -100,5 +110,20 @@ public class Memorija {
     }
 
 
+    public static int getVelicina() {
+        return VELICINA;
+    }
+    public static ArrayList<MemorijskaParticija> getParticije(){
+        return particije;
+    }
+    public static Proces getRunning_proces(){
+        return running_process;
+    }
+    public static Queue<Proces> getReadyQueue(){
+        return readyQueue;
+    }
+    public static void removeRunningProcess() {
+        running_process=null;
+    }
 
 }

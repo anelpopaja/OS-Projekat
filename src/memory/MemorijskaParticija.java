@@ -1,5 +1,7 @@
 package memory;
 
+import processes.Proces;
+
 import java.util.ArrayList;
 
 public class MemorijskaParticija {
@@ -36,7 +38,7 @@ public class MemorijskaParticija {
     }
     public void oslobodiMemoriju(){
         if(this.proces!=null){
-            this.proces.oslobodiMemoriju();
+            this.proces.setParticija(null);
             this.proces = null;
             this.zauzeto = 0;
         }
