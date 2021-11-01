@@ -29,6 +29,7 @@ public class MemorijskaParticija {
 
         this.proces = proces;
         zauzeto = proces.getVelicina();
+
         return this;
     }
     public MemorijskaParticija zauzmiMemoriju(int velicina){
@@ -75,6 +76,18 @@ public class MemorijskaParticija {
 
     @Override
     public String toString() {
+        if(this.zauzeto==0){
+
+
+            String res = "|";
+            for(int i = 0; i<this.getVelicina()/10; i++) {
+                if( i % 20 == 0 && i!=0)
+                    res+="\n ";
+                res += ("o");
+            }
+            res += "|";
+            return res;
+        }
         int k, z, s;
         k = (VELICINA%10 < 5) ? VELICINA/10 : VELICINA/10+1;
         z = (zauzeto%10 < 5) ? zauzeto/10 : zauzeto/10+1;
@@ -85,7 +98,7 @@ public class MemorijskaParticija {
             res += "x";
         for(int i = 0; i<s; i++)
             res += " ";
-        res += "|";
+        res += "|\n";
         return res;
     }
     public String info() {

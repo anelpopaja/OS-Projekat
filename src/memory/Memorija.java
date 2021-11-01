@@ -24,7 +24,6 @@ public class Memorija {
     public static boolean napraviParticiju(int velicinaParticije){
         if(VELICINA - zauzeto < velicinaParticije)
             return false;
-        zauzeto += velicinaParticije;
         particije.add(new MemorijskaParticija(velicinaParticije));
         return true;
     }
@@ -78,14 +77,17 @@ public class Memorija {
         MemorijskaParticija mp = SljedeciOdgovarajuci.ucitajProces(proces);
         if(mp == null)
             return false;
+
         proces.setParticija(mp);
         readyQueue.add(proces);
         proces.setState("READY");
+        Memorija.zauzeto = Memorija.zauzeto + mp.getZauzeto();
         System.out.println("MP limit: " + mp.getLimit());
         return true;
     }
 
     public static void remove(Proces proces) {
+        Memorija.zauzeto = Memorija.zauzeto - proces.getParticija().getZauzeto();
         proces.getParticija().oslobodiMemoriju();
     }
 
@@ -102,7 +104,7 @@ public class Memorija {
         System.out.println("Zauzeto: " + zauzeto);
         System.out.println("Slobodno:" + (VELICINA-zauzeto));
         for(MemorijskaParticija mempart: particije){
-            System.out.println("Particija velicina: " + mempart.getVelicina() + "Base: "+ mempart.getBase() + " Limit: " + mempart.getLimit());
+            System.out.println("Particija velicina: " + mempart.getVelicina());
         }
         String res = "";
         int d = 0;
