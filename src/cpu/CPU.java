@@ -42,9 +42,6 @@ public class CPU {
 
             if(d < currentProcess.codeAndData.size()) {
                 String instruction = currentProcess.codeAndData.get(d);
-                //System.out.println("~~~~~~~EXE~~~~~~~~~");
-                //System.out.println(instruction);
-                //System.out.println(PC.getValue());
                 IR.setValue(instruction);
                 PC.increment();
                 executeInstruction(IR.getValue());
