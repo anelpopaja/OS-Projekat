@@ -88,6 +88,11 @@ public class Memorija {
 
     public static void remove(Proces proces) {
         Memorija.zauzeto = Memorija.zauzeto - proces.getParticija().getZauzeto();
+        for(int i = 0; i<Memorija.getParticije().size(); i++){
+            if (Memorija.getParticije().get(i) == proces.getParticija())
+                Memorija.getParticije().get(i).setZauzeto(0);
+            System.err.println(Memorija.getParticije().get(i).getZauzeto());
+        }
         proces.getParticija().oslobodiMemoriju();
     }
 
@@ -103,7 +108,7 @@ public class Memorija {
         System.out.println("Velicina memorije: " + VELICINA);
         System.out.println("Zauzeto: " + zauzeto);
         System.out.println("Slobodno:" + (VELICINA-zauzeto));
-        for(MemorijskaParticija mempart: particije){
+        for(MemorijskaParticija mempart: Memorija.getParticije()){
             System.out.println("Particija velicina: " + mempart.getVelicina());
         }
         String res = "";

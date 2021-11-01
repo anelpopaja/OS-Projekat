@@ -43,7 +43,6 @@ public class MemorijskaParticija {
         if(this.proces!=null){
             this.proces.setParticija(null);
             this.proces = null;
-            this.zauzeto = 0;
         }
     }
 
@@ -56,6 +55,9 @@ public class MemorijskaParticija {
     }
     public int getZauzeto() {
         return zauzeto;
+    }
+    public void setZauzeto(int zauzeto){
+        this.zauzeto = zauzeto;
     }
     public int getSlobodno(){
         return VELICINA - zauzeto;
