@@ -62,11 +62,6 @@ public class Proces {
         public void load() {
             boolean loaded=false;
             while(!loaded) {
-                //Load u memoriji
-
-                //MemorijskaParticija mp = SljedeciOdgovarajuci.ucitajProces(this);
-                //this.particija = mp;
-                //TODO treba da se sad ucita u fizicku memoriju
                 loaded = Memorija.load(this);
             }
 
