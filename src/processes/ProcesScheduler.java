@@ -1,5 +1,6 @@
 package processes;
 
+import cpu.ThreadHandler;
 import memory.Memorija;
 
 import java.util.Queue;
@@ -12,8 +13,7 @@ public class ProcesScheduler {
             Memorija.setRunning_process(proces);
             proces.setState("RUNNING");
             //TODO new Round-Robin
-            //new ExecutionThread(process);
-
+            new ThreadHandler(proces);
         }
     }
 

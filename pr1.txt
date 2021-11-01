@@ -1,0 +1,17 @@
+JMP Start
+
+NumberA:
+DB 0
+
+Loop:
+ADD R1, R2
+CMP R2, 100
+ADD R2, 1
+JNZ Loop
+HLT
+
+Start:
+MOV R1, [NumberA]
+MOV R2, 1
+JMP Loop
+

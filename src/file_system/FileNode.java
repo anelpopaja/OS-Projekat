@@ -15,4 +15,8 @@ public class FileNode {
             this.content = new StringBuffer();
         }
     }
+
+    public HashMap<String, FileNode> getChildren(){
+        return children;
+    }
 }

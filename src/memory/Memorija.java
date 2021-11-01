@@ -1,5 +1,6 @@
 package memory;
 
+import com.sun.security.jgss.GSSUtil;
 import processes.Proces;
 
 import java.util.ArrayList;
@@ -80,6 +81,7 @@ public class Memorija {
         proces.setParticija(mp);
         readyQueue.add(proces);
         proces.setState("READY");
+        System.out.println("MP limit: " + mp.getLimit());
         return true;
     }
 
@@ -96,6 +98,12 @@ public class Memorija {
     }
 
     public static String prikazMemorije() {
+        System.out.println("Velicina memorije: " + VELICINA);
+        System.out.println("Zauzeto: " + zauzeto);
+        System.out.println("Slobodno:" + (VELICINA-zauzeto));
+        for(MemorijskaParticija mempart: particije){
+            System.out.println("Particija velicina: " + mempart.getVelicina() + "Base: "+ mempart.getBase() + " Limit: " + mempart.getLimit());
+        }
         String res = "";
         int d = 0;
         for(MemorijskaParticija particija:particije) {
@@ -107,6 +115,21 @@ public class Memorija {
             }
         }
         return res;
+    }
+    public static String decToBinary(int n){
+        String binaryNumber="";
+        int[] binaryNum = new int[1000];
+        int i = 0;
+
+        while (n > 0) {
+            binaryNum[i] = n % 2;
+            n = n / 2;
+            i++;
+        }
+        for (int j = i - 1; j >= 0; j--)
+            binaryNumber+=String.valueOf(binaryNum[j]);
+
+        return binaryNumber;
     }
 
 

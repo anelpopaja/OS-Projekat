@@ -1,0 +1,12 @@
+JMP Start
+
+NumberA: 
+DB 120
+NumberB: 
+DB 140
+
+Start:
+MOV R1, [NumberA]
+ADD R1, [NumberB]
+MUL R1, 4
+DIV R1, 2

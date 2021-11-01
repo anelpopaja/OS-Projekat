@@ -1,0 +1,17 @@
+JMP Start
+
+NumberA:
+DB 8
+
+Loop:
+MUL R1, R2
+CMP R2, 2
+SUB R2, 1
+JNZ Loop
+MOV NumberA, R1
+HLT
+
+Start:
+MOV R2, [NumberA]
+MOV R1, 1
+JMP Loop

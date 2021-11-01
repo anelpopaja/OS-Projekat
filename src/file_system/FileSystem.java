@@ -1,8 +1,12 @@
 package file_system;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class FileSystem {
     FileNode root;
@@ -36,7 +40,7 @@ public class FileSystem {
         return list;
     }
 
-    private FileNode goToCurrDir(String path) {
+    public FileNode goToCurrDir(String path) {
         if(path == null || path.isEmpty() || path.equals("/") || !path.startsWith("/")) {
             throw new IllegalArgumentException("Invalid path. Please provide valid absolute path");
         }
@@ -75,5 +79,27 @@ public class FileSystem {
     public String catFile(String path, String fileName) {
         FileNode curr = goToCurrDir(path);
         return curr.children.get(fileName).content.toString();
+    }
+
+    public void loadAssemblerFiles(){
+
+        this.mkdir("/home");
+        this.mkdir("/home/Assembler Files");
+        File directory = new File("C:\\Users\\PC\\Desktop\\OS-Projekat\\Assembler files");
+        for(int i = 0; i<directory.list().length - 1; i++){
+            StringBuffer data = new StringBuffer("");
+            try {
+
+                Scanner reader = new Scanner(new File("C:\\Users\\PC\\Desktop\\OS-Projekat\\Assembler files\\pr"+(i+1)+".txt"));
+                while (reader.hasNextLine()){
+                    data.append(reader.nextLine());
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("U suck");
+                e.printStackTrace();
+            }
+            this.createFile("/home/Assembler Files", "pr"+(i+1)+".txt", data.toString());
+        }
+
     }
 }

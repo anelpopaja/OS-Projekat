@@ -2,7 +2,6 @@ package processes;
 
 import memory.Memorija;
 import memory.MemorijskaParticija;
-import memory.SljedeciOdgovarajuci;
 
 import java.util.ArrayList;
 import java.util.Queue;
@@ -29,7 +28,7 @@ public class Proces {
             this.codeAndData = codeAndData;
             this.naziv = name;
             this.file = file;
-            velicina = codeAndData.size()*16;
+            velicina = codeAndData.size()*16 +100;
             processes.add(this);
             this.particija = null;
             this.init();
@@ -44,23 +43,19 @@ public class Proces {
             while(!loaded) {
                 //Load u memoriji
 
-                Memorija.load(this);
                 //MemorijskaParticija mp = SljedeciOdgovarajuci.ucitajProces(this);
                 //this.particija = mp;
-                if(Memorija.load(this))
-                    loaded = true;
+                loaded = Memorija.load(this);
             }
             if(Memorija.getRunning_proces() == null)
                ProcesScheduler.schedule();
         }
         public void exit() {
             this.state = "TERMINATED";
-            //CPU.setToZero();
-            //processes.remove(this);
+
             Memorija.removeRunningProcess();
             Memorija.remove(this);
-            //already done in .remove
-            //this.particija = null;
+            //TODO
             //ProcessScheduler.schedule();
         }
         public static void list() {

@@ -5,6 +5,8 @@ import processes.Proces;
 import java.util.ArrayList;
 
 public class MemorijskaParticija {
+    private int base;
+    private int limit;
     private Proces proces;
     private final int VELICINA;
     private int zauzeto;
@@ -56,6 +58,19 @@ public class MemorijskaParticija {
     }
     public int getSlobodno(){
         return VELICINA - zauzeto;
+    }
+    public int getBase(){
+        return base;
+    }
+    public int getLimit(){
+        return limit;
+    }
+    public void setLimit(int limit){
+        this.limit = limit;
+
+    }
+    public void setBase(int base){
+        this.base = base;
     }
 
     @Override
