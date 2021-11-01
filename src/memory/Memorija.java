@@ -81,7 +81,7 @@ public class Memorija {
         proces.setParticija(mp);
         readyQueue.add(proces);
         proces.setState("READY");
-        Memorija.zauzeto = Memorija.zauzeto + mp.getZauzeto() +100;
+        Memorija.zauzeto = Memorija.zauzeto + mp.getZauzeto();
         System.out.println("MP limit: " + mp.getLimit());
         return true;
     }
