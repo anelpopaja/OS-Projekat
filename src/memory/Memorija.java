@@ -102,7 +102,7 @@ public class Memorija {
         System.out.println("Zauzeto: " + zauzeto);
         System.out.println("Slobodno:" + (VELICINA-zauzeto));
         for(MemorijskaParticija mempart: particije){
-            System.out.println("Particija velicina: " + mempart.getVelicina() + "Base: "+ mempart.getBase() + " Limit: " + mempart.getLimit());
+            System.out.println("Particija velicina: " + mempart.getVelicina());
         }
         String res = "";
         int d = 0;

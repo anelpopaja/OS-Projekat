@@ -9,6 +9,7 @@ import assembler.Assembler;
 import assembler.Assembler1;
 import file_system.FileSystem;
 import memory.Memorija;
+import memory.MemorijskaParticija;
 import processes.Proces;
 
 public class Kernel {
@@ -82,8 +83,7 @@ public class Kernel {
             Proces.list();
 
         else if(list[0].equals(commands[3]) && list.length == 1)
-            //CPU.printRM();
-            System.out.println("Missing cpu");
+            System.out.println(Memorija.prikazMemorije());
 
         else
             System.out.println("Error! Invalid parameters!");
