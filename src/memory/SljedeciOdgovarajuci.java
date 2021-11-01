@@ -25,9 +25,12 @@ public class SljedeciOdgovarajuci {
             System.out.println(odgovarajuci_indeks);
             Memorija.razdvojiParticije(odgovarajuci_indeks);
             MemorijskaParticija temp = Memorija.getParticije().get(odgovarajuci_indeks-1);
+            System.out.println("~~~~~~~~~~velicina prethodni~~~~~~~~~~~~~~");
             System.out.println(temp.getVelicina());
-            particija_procesa.setBase(temp.getLimit()+1);
-            System.out.println("Setting base to: "+ (temp.getLimit()+1));
+            //TODO zasto ne valja?   particija_procesa.setBase(temp.getLimit()+1);
+            particija_procesa.setBase(temp.getVelicina());
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("Setting base to: "+ temp.getVelicina());
             System.out.println(temp);
             System.out.println("Printing out partitions: ");
             particija_procesa.setLimit(particija_procesa.getBase()+proces.getVelicina());
@@ -42,10 +45,10 @@ public class SljedeciOdgovarajuci {
         if(odgovarajuceParticije.size() > 0) {
             MemorijskaParticija particija_procesa = Memorija.zauzmiParticiju(0, proces);
             Memorija.razdvojiParticije(0);
-            System.out.println("Setting base to 0");
+            System.out.println("Setting base to 0 ~~~~~~~~~~~~~");
             particija_procesa.setBase(0);
             particija_procesa.setLimit(proces.getVelicina());
-            System.out.println("Limit" + particija_procesa.getLimit());
+            System.out.println("Limit newwww ~~~~~~~" + particija_procesa.getLimit());
             return particija_procesa;
         }
         //TODO

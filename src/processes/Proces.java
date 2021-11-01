@@ -11,11 +11,14 @@ public class Proces {
 
         private static ArrayList<Proces> processes = new ArrayList<>();
         private MemorijskaParticija particija;
+        private int indexParticije;
         private static int counter = 0;
         private int pid;
         private String state;
         private int programCounter;
         private int velicina;
+        private int base;
+        private int limit;
         private String naziv;
         private ArrayList<String> codeAndData;
 
@@ -45,6 +48,7 @@ public class Proces {
 
                 //MemorijskaParticija mp = SljedeciOdgovarajuci.ucitajProces(this);
                 //this.particija = mp;
+                //TODO treba da se sad ucita u fizicku memoriju
                 loaded = Memorija.load(this);
             }
             if(Memorija.getRunning_proces() == null)
