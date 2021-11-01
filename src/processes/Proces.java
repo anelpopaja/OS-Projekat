@@ -85,10 +85,8 @@ public class Proces {
         this.trenutniR3 = CPU.R3.getValue();
         this.trenutnid = CPU.d;
         CPU.setToZero();
-        //processes.remove(this);
         Memorija.removeRunningProcess();
         Memorija.getReadyQueue().add(this);
-        //RAM.remove(this);
         ProcesScheduler.schedule();
         Kernel.executeCommand("list");
         System.out.println("~~~++---CONTEXT SWITCH---!!~~~~");
