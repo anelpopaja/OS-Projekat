@@ -49,6 +49,8 @@ public class Kernel {
         executeCommand(list[0]);
         executeCommand(list[4]);
         executeCommand(list[1]);
+        executeCommand(list[1]);
+        executeCommand(list[1]);
         executeCommand(list[5]);
         start();
     }
