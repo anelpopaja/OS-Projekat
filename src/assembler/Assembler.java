@@ -66,7 +66,7 @@ public class Assembler {
                         }
                     }
                     if(array[0].equals("MOV")) {
-                        System.out.println("**********MOV duzine 3*******");
+
                         String tmp=loadOrStore(array);
                         codeList.add(tmp);
                         indexes.add(codeList.indexOf(tmp));

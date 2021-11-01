@@ -42,9 +42,9 @@ public class CPU {
 
             if(d < currentProcess.codeAndData.size()) {
                 String instruction = currentProcess.codeAndData.get(d);
-                System.out.println("~~~~~~~EXE~~~~~~~~~");
-                System.out.println(instruction);
-                System.out.println(PC.getValue());
+                //System.out.println("~~~~~~~EXE~~~~~~~~~");
+                //System.out.println(instruction);
+                //System.out.println(PC.getValue());
                 IR.setValue(instruction);
                 PC.increment();
                 executeInstruction(IR.getValue());
@@ -116,12 +116,12 @@ public class CPU {
 
                 System.out.println(offsetForData);
                 System.out.println(offset);
-                System.out.println("Datalocation ~~~~~~~`" + dataLocation);
+                //System.out.println("Datalocation ~~~~~~~`" + dataLocation);
 
                 String data = currentProcess.codeAndData.get(offset);
 
-                System.out.println("~~~~~~~~~`data~````````");
-                System.out.println(data);
+                //System.out.println("~~~~~~~~~`data~````````");
+                //System.out.println(data);
 
                 if (register.equals(R1.getAddress()))
                     R1.setValue(data);
@@ -207,6 +207,7 @@ public class CPU {
         System.out.println("R2: "+R2.getValue());
         System.out.println("R3: "+R3.getValue());
     }
+    /*
     public static void printRM() {
         System.out.println("State of memory and registers:");
         System.out.println();
@@ -225,6 +226,6 @@ public class CPU {
         }catch(Exception e) {
             return null;
         }
-    }
+    }*/
 
 }
