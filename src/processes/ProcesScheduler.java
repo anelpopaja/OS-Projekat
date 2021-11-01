@@ -12,7 +12,6 @@ public class ProcesScheduler {
             Proces proces = readyQueue.remove();
             Memorija.setRunning_process(proces);
             proces.setState("RUNNING");
-            //TODO new Round-Robin
             new ThreadHandler(proces);
         }
     }

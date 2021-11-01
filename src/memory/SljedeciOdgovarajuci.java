@@ -33,29 +33,6 @@ public class SljedeciOdgovarajuci {
 
             return particija_procesa;
         }
-        //TODO
-        // nema slobodnih memorijskih particija, sada posmatramo dovoljno velike particije koje nisu slobodne
-        /*
-        odgovarajuceParticije = MemorijskaParticija.getOdgovarajuceParticije(proces);
-        for(MemorijskaParticija mp: odgovarajuceParticije)
-            if(Memorija.getParticije().indexOf(mp) > pokazivac) {
-                odgovarajuci_indeks = Memorija.getParticije().indexOf(mp);
-                pokazivac = odgovarajuci_indeks;
-                break;
-            }
-
-        if(odgovarajuci_indeks != -1) {
-            proces.ucitavanjeProcesa(Memorija.getParticije().get(odgovarajuci_indeks));
-            return Memorija.getParticije().get(odgovarajuci_indeks);
-        }
-
-        if(odgovarajuceParticije.size() > 0) {
-            pokazivac = Memorija.getParticije().indexOf(odgovarajuceParticije.get(0));
-            proces.ucitavanjeProcesa(Memorija.getParticije().get(pokazivac));
-            return Memorija.getParticije().get(pokazivac);
-        }
-
-    */
         return null;
 
     }
