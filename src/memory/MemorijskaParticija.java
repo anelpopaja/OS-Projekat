@@ -83,7 +83,7 @@ public class MemorijskaParticija {
 
             String res = "|";
             for(int i = 0; i<this.getVelicina()/10; i++) {
-                if( i % 20 == 0 && i!=0)
+                if( i % 40 == 0 && i!=0)
                     res+="\n ";
                 res += ("o");
             }
