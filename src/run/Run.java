@@ -40,8 +40,15 @@ public class Run{
     public void start2() {
         String[]list= {"exe pr1.txt","exe pr2.txt res.txt","exe pr3.txt res.txt",
                 "exe pr4.txt res.txt","exe pr5.txt res.txt","list"};
+        /*
         for(int i=0; i<list.length; i++)
             executeCommand(list[i]);
+
+         */
+        executeCommand(list[0]);
+        executeCommand(list[1]);
+        executeCommand(list[4]);
+        executeCommand(list[5]);
         start();
     }
 
@@ -92,7 +99,7 @@ public class Run{
 
     public static void main(String[]args) {
         FileSystem fs = new FileSystem();
-        fs.loadAssemblerFiles();
+        //fs.loadAssemblerFiles();
         Run cmd = new Run();
     }
 }
