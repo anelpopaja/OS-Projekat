@@ -46,17 +46,17 @@ public class Kernel {
 
          */
         executeCommand(list[4]);
-        executeCommand(list[0]);
+        //executeCommand(list[0]);
         executeCommand(list[4]);
         executeCommand(list[1]);
-        executeCommand(list[1]);
-        executeCommand(list[1]);
+        //executeCommand(list[1]);
+        //executeCommand(list[1]);
         executeCommand(list[5]);
         start();
     }
 
     //Creates a new Process (Or executes other commands)
-    private void executeCommand(String command) {
+    public static void executeCommand(String command) {
         String[]list=command.split(" ");
         if(list[0].equals(commands[0]) && (list.length == 3 || list.length == 2)) {
             File file=new File(list[1]);
@@ -75,8 +75,8 @@ public class Kernel {
                 System.out.println("Error! File '"+list[1]+"' does not exist!");
             }
         }
-        else if(list[0].equals(commands[1]) && list.length == 1)
-            exit();
+        else if(list[0].equals(commands[1]) && list.length == 1);
+            //exit();
 
         else if(list[0].equals(commands[2]) && list.length == 1)
             Proces.list();

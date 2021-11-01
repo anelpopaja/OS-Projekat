@@ -1,5 +1,7 @@
 package processes;
 
+import cpu.CPU;
+import kernel.Kernel;
 import memory.Memorija;
 import memory.MemorijskaParticija;
 
@@ -23,6 +25,11 @@ public class Proces {
         public ArrayList<String> codeAndData;  //TODO privremeno public
 
         private String file;
+        public String trenutniPC;
+        public String trenutniR1;
+        public String trenutniR2;
+        public String trenutniR3;
+        public int trenutnid;
 
         public Proces(ArrayList<String> codeAndData, String name, String file) {
             pid = counter++;
@@ -32,6 +39,17 @@ public class Proces {
             this.naziv = name;
             this.file = file;
             velicina = codeAndData.size()*16;
+            int length=Memorija.powerOfTwo(Memorija.getVelicina());
+            String firstInstruction="";
+            for(int i=0; i<length; i++) {
+                firstInstruction+="0";
+            }
+
+            trenutniPC = firstInstruction;
+            trenutniR1 = "";
+            trenutniR2 = "";
+            trenutniR3 = "";
+            trenutnid = 0;
             processes.add(this);
             this.particija = null;
             this.init();
@@ -63,6 +81,24 @@ public class Proces {
             //TODO
             ProcesScheduler.schedule();
         }
+
+    public void contextSwitch() {
+        this.state="READY";
+        this.trenutniPC = CPU.PC.getValue();
+        this.trenutniR1 = CPU.R1.getValue();
+        this.trenutniR2 = CPU.R2.getValue();
+        this.trenutniR3 = CPU.R3.getValue();
+        this.trenutnid = CPU.d;
+        CPU.setToZero();
+        //processes.remove(this);
+        Memorija.removeRunningProcess();
+        Memorija.getReadyQueue().add(this);
+        //RAM.remove(this);
+        ProcesScheduler.schedule();
+        Kernel.executeCommand("list");
+        System.out.println("~~~++---CONTEXT SWITCH---!!~~~~");
+    }
+
         public static void list() {
             Queue<Proces> readyProcesses = Memorija.getReadyQueue();
             Proces runningProcess = Memorija.getRunning_proces();
