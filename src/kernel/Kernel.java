@@ -1,7 +1,6 @@
-package run;
+package kernel;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,14 +10,14 @@ import file_system.FileSystem;
 import memory.Memorija;
 import processes.Proces;
 
-public class Run{
+public class Kernel {
     private Scanner scan;
     private final static String[] commands= {"exe", "exit", "list","print"};
     private static FileSystem fs;
 
 
     //Needs to be cleaned up
-    public Run() {
+    public Kernel() {
         scan=new Scanner(System.in);
         Memorija.init();
         this.start2();
@@ -100,6 +99,6 @@ public class Run{
     public static void main(String[]args) {
         FileSystem fs = new FileSystem();
         //fs.loadAssemblerFiles();
-        Run cmd = new Run();
+        Kernel cmd = new Kernel();
     }
 }
