@@ -20,6 +20,8 @@ public class Kernel {
 
     //Needs to be cleaned up
     public Kernel() {
+        FileSystem fs = new FileSystem();
+        fs.mkdir("/home");
         scan=new Scanner(System.in);
         Memorija.init();
         this.start2();
@@ -29,9 +31,13 @@ public class Kernel {
         try {
             while(scan.hasNextLine()) {
                 String command=scan.nextLine();
-                if(isValid(command))
+                if(isValid(command)){
                     executeCommand(command);
+                    Memorija.prikazMemorije();}
+                //else if(isValidFs(command)){
+                //}
                 else
+
                     System.out.println("Error! '"+command.split(" ")[0]+"' is not recognized as a command!");
             }
         }catch(Exception e) {
@@ -94,6 +100,45 @@ public class Kernel {
             return false;
         return true;
     }
+    /*
+    private boolean isValidFs(String command){
+        if(command == null || command.isEmpty() || command.equals("/")) {
+            System.out.println("Pogresna komanda!");
+            return false;
+        }
+        String command1 = command.split(" ")[0];
+        System.out.println(command1);
+        if(command1 .equals("mkdir") ){
+            if(fs.mkdir(command.split(" ")[1]))
+                System.out.println("Direktorij uspjesno kreiran!");
+            else{
+                System.out.println("Greska u putanji!");
+
+                return false;
+            }
+
+        }
+        else if(command1.equals("ls")){
+            String command2 = command.split(" ")[1];
+            System.out.println(fs.ls(command2));
+            return true;
+        }
+        else if (command1.equals("createFile")){
+            fs.createFile(command.split(" ")[1], command.split(" ")[2], command.split(" ")[3]);
+            System.out.println("Created a file!");
+            return true;
+
+        }
+        else if (command1.equals("append")  ){
+            fs.appendToFile(command.split(" ")[1], command.split(" ")[2], command.split(" ")[3]);
+            return true;
+        }
+        else if(command1.equals("read")){
+            System.out.println(fs.catFile(command.split(" ")[1], command.split(" ")[2]));
+            return true;
+        }
+        return false;
+    }*/
     public void exit() {
         System.out.println("Goodbye!");
         System.exit(0);
@@ -101,8 +146,7 @@ public class Kernel {
 
 
     public static void main(String[]args) {
-        FileSystem fs = new FileSystem();
-        //fs.loadAssemblerFiles();
+
         Kernel cmd = new Kernel();
     }
 }

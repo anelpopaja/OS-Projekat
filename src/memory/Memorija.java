@@ -81,7 +81,7 @@ public class Memorija {
         proces.setParticija(mp);
         readyQueue.add(proces);
         proces.setState("READY");
-        Memorija.zauzeto = Memorija.zauzeto + mp.getZauzeto();
+        Memorija.zauzeto = Memorija.zauzeto + mp.getZauzeto() +100;
         System.out.println("MP limit: " + mp.getLimit());
         return true;
     }
@@ -91,7 +91,6 @@ public class Memorija {
         for(int i = 0; i<Memorija.getParticije().size(); i++){
             if (Memorija.getParticije().get(i) == proces.getParticija())
                 Memorija.getParticije().get(i).setZauzeto(0);
-            System.err.println(Memorija.getParticije().get(i).getZauzeto());
         }
         proces.getParticija().oslobodiMemoriju();
     }
