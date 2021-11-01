@@ -1,0 +1,13 @@
+JMP Start
+
+Loop:
+ADD R1, R2
+CMP R2, 5
+ADD R2, 1
+JNZ Loop
+HLT
+
+Start:
+MOV R1, 0
+MOV R2, 1
+JMP Loop

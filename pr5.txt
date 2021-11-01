@@ -1,0 +1,7 @@
+JMP Start
+
+Start:
+MOV R1, 12
+ADD R1, 8
+MUL R1, 4
+DIV R1, 2
