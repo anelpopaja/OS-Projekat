@@ -10,7 +10,7 @@ public class ThreadHandler extends Thread {
 
     }
     public void run(){
-/*
-            CPU.execute(proces);*/
+
+            CPU.execute(proces);
     }
 }

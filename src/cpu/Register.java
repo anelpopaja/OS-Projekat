@@ -22,16 +22,16 @@ public class Register {
     public String getAddress() {
         return address;
     }
-    /*
+
     public void increment() {
         int number=Integer.parseInt(value,2);
         number++;
         String binaryNumber=Memorija.decToBinary(number+16);
         String newBinary="";
-        for(int i=0; i<Memorija.powerOfTwo(Memorija.getSize())-binaryNumber.length(); i++)
+        for(int i=0; i<Memorija.powerOfTwo(Memorija.getVelicina())-binaryNumber.length(); i++)
             newBinary+="0";
         newBinary+=binaryNumber;
         value=newBinary;
     }
-    */
+
 }

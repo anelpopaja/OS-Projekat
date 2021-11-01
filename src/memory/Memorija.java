@@ -152,5 +152,16 @@ public class Memorija {
         return readyQueue;
     }
 
+    public static int powerOfTwo(int size) {
+        int i=1;
+        int counter=0;
+        while(i<=size) {
+            i*=2;
+            counter++;
+        }
+        if (i/2 == size)
+            return --counter;
+        return -1;
+    }
 
 }

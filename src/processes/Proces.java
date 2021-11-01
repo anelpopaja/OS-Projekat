@@ -20,7 +20,7 @@ public class Proces {
         private int base;
         private int limit;
         private String naziv;
-        private ArrayList<String> codeAndData;
+        public ArrayList<String> codeAndData;  //TODO privremeno public
 
         private String file;
 
@@ -31,7 +31,7 @@ public class Proces {
             this.codeAndData = codeAndData;
             this.naziv = name;
             this.file = file;
-            velicina = codeAndData.size()*16 +100;
+            velicina = codeAndData.size()*16;
             processes.add(this);
             this.particija = null;
             this.init();
