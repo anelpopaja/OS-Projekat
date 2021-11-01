@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import assembler.Assembler;
 //import cpu.CPU;
+import assembler.Assembler1;
 import file_system.FileSystem;
 import memory.Memorija;
 import processes.Proces;
@@ -45,7 +46,7 @@ public class Kernel {
 
          */
         executeCommand(list[0]);
-        executeCommand(list[1]);
+        //executeCommand(list[1]);
         executeCommand(list[4]);
         executeCommand(list[5]);
         start();
@@ -58,7 +59,7 @@ public class Kernel {
             File file=new File(list[1]);
             if(file.exists()) {
                 //ArrayList<String>codeAndData = new ArrayList<>();
-                ArrayList<String> codeAndData = Assembler.convert(list[1]);
+                ArrayList<String> codeAndData = Assembler1.convert(list[1]);
                 System.out.println();
                 System.out.println(codeAndData);
                 int index=list[1].indexOf('.');

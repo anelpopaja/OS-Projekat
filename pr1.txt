@@ -1,6 +1,5 @@
-JMP Start
-Start:
-MOV R1, 6
+
+MOV R1, 7
 HLT
 
 
