@@ -147,35 +147,6 @@ public class Assembler1 {
         return codeList;
     }
 
-    public static ArrayList<String>compare(String[]array){
-        ArrayList<String>codeList=new ArrayList<String>();
-        String tmp="";
-
-        if(array[2].contains("[") || isNumeric(array[2])) {
-
-            String reg=array[1].substring(0, array[1].length()-1);
-            String loc="";
-            if(array[2].contains("["))
-                loc=array[2].substring(1, array[2].length()-1);
-            else
-                loc=array[2];
-
-            tmp=loadOpCode+""+R3.getAddress()+""+loc;
-            codeList.add(tmp);
-            tmp="";
-
-            if(reg.equals("R1"))
-                tmp=cmpOpCode+"0000"+R1.getAddress()+"0000"+R3.getAddress();
-            else
-                tmp=cmpOpCode+"0000"+R2.getAddress()+"0000"+R3.getAddress();
-            codeList.add(tmp);
-        }
-        else {
-            tmp=cmpOpCode+"0000"+R1.getAddress()+"0000"+R2.getAddress();
-            codeList.add(tmp);
-        }
-        return codeList;
-    }
     public static ArrayList<String> operations(String[] array) {
 
         ArrayList<String>codeList=new ArrayList<String>();
@@ -276,10 +247,5 @@ public class Assembler1 {
 
         return binaryNumber;
     }
-    public static int firstIndex(String string) {
-        for(int i=4; i<string.length(); i++)
-            if(string.charAt(i) >='0' && string.charAt(i) <='9')
-                return i;
-        return -1;
-    }
+
 }

@@ -81,9 +81,9 @@ public class Kernel {
         else if(list[0].equals(commands[2]) && list.length == 1)
             Proces.list();
 
-        else if(list[0].equals(commands[3]) && list.length == 1)
+        //else if(list[0].equals(commands[3]) && list.length == 1)
             //CPU.printRM();
-            System.out.println("Missing cpu");
+            //System.out.println("Missing cpu");
 
         else
             System.out.println("Error! Invalid parameters!");
