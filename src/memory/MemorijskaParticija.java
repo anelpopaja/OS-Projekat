@@ -75,6 +75,17 @@ public class MemorijskaParticija {
 
     @Override
     public String toString() {
+        if(this.zauzeto==0){
+
+            String res = "|";
+            for(int i = 0; i<this.getVelicina()/10; i++) {
+                if( i % 20 == 0 && i!=0)
+                    res+="\n ";
+                res += ("o");
+            }
+            res += "|";
+            return res;
+        }
         int k, z, s;
         k = (VELICINA%10 < 5) ? VELICINA/10 : VELICINA/10+1;
         z = (zauzeto%10 < 5) ? zauzeto/10 : zauzeto/10+1;
