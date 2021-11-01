@@ -51,6 +51,7 @@ public class Proces {
                 //TODO treba da se sad ucita u fizicku memoriju
                 loaded = Memorija.load(this);
             }
+
             if(Memorija.getRunning_proces() == null)
                ProcesScheduler.schedule();
         }
@@ -60,7 +61,7 @@ public class Proces {
             Memorija.removeRunningProcess();
             Memorija.remove(this);
             //TODO
-            //ProcessScheduler.schedule();
+            ProcesScheduler.schedule();
         }
         public static void list() {
             Queue<Proces> readyProcesses = Memorija.getReadyQueue();
