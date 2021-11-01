@@ -18,7 +18,7 @@ public class Kernel {
 
     //Needs to be cleaned up
     public Kernel() {
-        FileSystem fs = new FileSystem();
+        fs = new FileSystem();
         fs.mkdir("/home");
         scan=new Scanner(System.in);
         Memorija.init();
@@ -32,10 +32,9 @@ public class Kernel {
                 if(isValid(command)){
                     executeCommand(command);
                     Memorija.prikazMemorije();}
-                //else if(isValidFs(command)){
-                //}
+                else if(isValidFs(command)){
+                }
                 else
-
                     System.out.println("Error! '"+command.split(" ")[0]+"' is not recognized as a command!");
             }
         }catch(Exception e) {
@@ -98,17 +97,18 @@ public class Kernel {
             return false;
         return true;
     }
-    /*
+
     private boolean isValidFs(String command){
         if(command == null || command.isEmpty() || command.equals("/")) {
             System.out.println("Pogresna komanda!");
             return false;
         }
         String command1 = command.split(" ")[0];
-        System.out.println(command1);
         if(command1 .equals("mkdir") ){
-            if(fs.mkdir(command.split(" ")[1]))
+            if(fs.mkdir(command.split(" ")[1])) {
                 System.out.println("Direktorij uspjesno kreiran!");
+                return true;
+            }
             else{
                 System.out.println("Greska u putanji!");
 
@@ -136,7 +136,7 @@ public class Kernel {
             return true;
         }
         return false;
-    }*/
+    }
     public void exit() {
         System.out.println("Goodbye!");
         System.exit(0);
