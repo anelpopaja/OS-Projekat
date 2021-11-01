@@ -4,12 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import assembler.Assembler;
 //import cpu.CPU;
-import assembler.Assembler1;
+import assembler.Assembler;
 import file_system.FileSystem;
 import memory.Memorija;
-import memory.MemorijskaParticija;
 import processes.Proces;
 
 public class Kernel {
@@ -63,7 +61,7 @@ public class Kernel {
             File file=new File(list[1]);
             if(file.exists()) {
                 //ArrayList<String>codeAndData = new ArrayList<>();
-                ArrayList<String> codeAndData = Assembler1.convert(list[1]);
+                ArrayList<String> codeAndData = Assembler.convert(list[1]);
                 System.out.println();
                 System.out.println(codeAndData);
                 int index=list[1].indexOf('.');

@@ -1,13 +1,14 @@
 package assembler;
 
-import cpu.Register;
-
+import cpu.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Assembler {
+
     private static String jumpOpCode="0001";
     private static String loadOpCode="0010";
     private static String storeOpCode="0011";
@@ -27,8 +28,7 @@ public class Assembler {
         ArrayList<String>codeList=new ArrayList<String>();
         ArrayList<Integer>indexes=new ArrayList<Integer>();
 
-        ArrayList<String>dbList=new ArrayList<String>();
-        HashMap<String,String> nameMap=new HashMap<>();
+        HashMap<String,String>nameMap=new HashMap<>();
 
         int addressCounter=0;
         try {
@@ -49,100 +49,6 @@ public class Assembler {
                         codeList.add("0000000000000000");
                         addressCounter++;
                     }
-                    else if(array[0].contains(":")){
-
-                        line = myReader.nextLine();
-                        String[] arr = line.split(" ");
-
-                        if(arr[0].equals("DB")) {
-                            nameMap.put(array[0].substring(0, array[0].length()-1), "-1");
-                            dbList.add(array[0].substring(0, array[0].length()-1)+" "+line);
-                        }
-                        else if(arr[0].equals("HLT")) {
-                            String number=decToBinary(addressCounter*16);
-                            String newNumber="";
-                            for(int j=0; j<10-number.length(); j++)
-                                newNumber+="0";
-                            newNumber+=number;
-                            nameMap.put(array[0].substring(0, array[0].length()-1), newNumber);
-                            codeList.add("0000000000000000");
-                            addressCounter++;
-                        }
-                        else {
-                            String number=decToBinary(addressCounter*16);
-                            String newNumber="";
-                            for(int j=0; j<10-number.length(); j++)
-                                newNumber+="0";
-                            newNumber+=number;
-                            nameMap.put(array[0].substring(0, array[0].length()-1), newNumber);
-
-                            ArrayList<String>list=new ArrayList<>();
-
-                            if(arr[0].equals("ADD") || arr[0].equals("SUB") || arr[0].equals("MUL") || arr[0].equals("DIV")) {
-                                list=operations(arr);
-                                if(isNumeric(arr[2])) {
-                                    nameMap.put(arr[2], "-1");
-                                    dbList.add(arr[2]+" DB "+arr[2]);
-                                }
-                            }
-
-                            else if(arr[0].equals("CMP")) {
-                                list=compare(arr);
-                                if(isNumeric(arr[2])) {
-                                    nameMap.put(arr[2], "-1");
-                                    dbList.add(arr[2]+" DB "+arr[2]);
-                                }
-                            }
-                            if(arr[0].equals("MOV")) {
-                                String tmp=loadOrStore(arr);
-                                codeList.add(tmp);
-                                indexes.add(codeList.indexOf(tmp));
-                                if(isNumeric(tmp.substring(6))) {
-                                    nameMap.put(tmp.substring(6), "-1");
-                                    dbList.add(tmp.substring(6)+" DB "+tmp.substring(6));
-                                }
-                                addressCounter++;
-
-                            }else {
-                                int size=list.size();
-                                addressCounter+=size;
-                                for(int i=0; i<list.size(); i++) {
-                                    codeList.add(list.get(i));
-
-                                    boolean added=false;
-                                    for(int j=0; j<list.get(i).length(); j++) {
-                                        if(list.get(i).charAt(j) >'1' || list.get(i).charAt(j) <'0') {
-                                            indexes.add(codeList.indexOf(list.get(i)));
-                                            added=true;
-                                            break;
-                                        }
-                                    }
-                                    if(added)
-                                        continue;
-                                    if(list.get(i).length() != 16) {
-                                        indexes.add(codeList.indexOf(list.get(i)));
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
-
-                else if(array.length == 2) {
-                    if(array[0].equals("JMP")) {
-
-                        String tmp=jumpOpCode+""+array[1];
-                        codeList.add(tmp);
-                        indexes.add(codeList.indexOf(tmp));
-                        addressCounter++;
-                    }
-                    else if(array[0].equals("JNZ")) {
-                        String tmp=jnzOpCode+""+array[1];
-                        codeList.add(tmp);
-                        indexes.add(codeList.indexOf(tmp));
-                        addressCounter++;
-                    }
                 }
                 else if(array.length == 3) {
 
@@ -150,26 +56,23 @@ public class Assembler {
 
                     if(array[0].equals("ADD") || array[0].equals("SUB") || array[0].equals("MUL") || array[0].equals("DIV")) {
                         list=operations(array);
-                        if(isNumeric(array[2])) {
-                            nameMap.put(array[2], "-1");
-                            dbList.add(array[2]+" DB "+array[2]);
-                        }
-                    }
 
-                    else if(array[0].equals("CMP")) {
-                        list=compare(array);
                         if(isNumeric(array[2])) {
                             nameMap.put(array[2], "-1");
-                            dbList.add(array[2]+" DB "+array[2]);
+                            System.out.println("prvamapa-------");
+                            System.out.println(nameMap);
+                            //TODO promeniti da se preskoci ovaj korak
+
                         }
                     }
                     if(array[0].equals("MOV")) {
+                        System.out.println("**********MOV duzine 3*******");
                         String tmp=loadOrStore(array);
                         codeList.add(tmp);
                         indexes.add(codeList.indexOf(tmp));
                         if(isNumeric(tmp.substring(6))) {
                             nameMap.put(tmp.substring(6), "-1");
-                            dbList.add(tmp.substring(6)+" DB "+tmp.substring(6));
+                            //TODO promeniti da se direktno pisu adrese
                         }
                         addressCounter++;
 
@@ -203,111 +106,59 @@ public class Assembler {
             e.printStackTrace();
         }
 
-        codeList.add("0000000000000000");
+        System.out.println("Print*********************codeList**********");
+        System.out.println(codeList);
+        codeList.add("0000000000000000");  //zalijepi jos jedno 00..00 pored onog poslije HLT
         addressCounter++;
 
-        for(int i=0; i<dbList.size(); i++) {
-            String[] array=dbList.get(i).split(" ");
-            String binaryNumber=decToBinary(Integer.parseInt(array[2]));
+        for(int i=0; i<indexes.size(); i++) {
+            int indeks = indexes.get(i);
+            String pr = codeList.get(indeks).substring(6);
+            String binaryNumber=decToBinary(Integer.parseInt(pr));
+
             String number="";
+            //TODO treba podesiti da je sve ukupno zapisano na 16 bita za PODATKE
             for(int j=0; j<16-binaryNumber.length(); j++)
                 number+="0";
             number+=binaryNumber;
-            codeList.add(number);
+            codeList.add(number); //TODO dodamo na kraj broj ----> data
 
-            String num=decToBinary(addressCounter*16);
+            String num=decToBinary(addressCounter*16);    //TODO uraditi da se mnozi sa manje pa da mozemo vise adresa...
             String newNumber="";
             for(int j=0; j<10-num.length(); j++)
                 newNumber+="0";
             newNumber+=num;
-            nameMap.replace(array[0],newNumber);
+            nameMap.replace(pr,newNumber);   //TODO zaobici...moze krace
             addressCounter++;
+            String address=nameMap.get(pr);
+            String newInstr=codeList.get(indeks).substring(0,6);
+            for(int j=0; j<10-address.length(); j++)    //dodamo do 10 jer 6 je vec potroseno na opCode i registar
+                newInstr+="0";
+            newInstr+=address;
+            codeList.set(indexes.get(i), newInstr);
         }
 
-        for(int i=0; i<indexes.size(); i++) {
-            String instruction=codeList.get(indexes.get(i));
+        System.out.println("****************");
+        System.out.println(nameMap);
+        System.out.println(indexes);
+        System.out.println("COde list asembler ---> idalje nije binarno svee --> sad jeste");
+        System.out.println(codeList);
 
-            if(instruction.substring(0, 4).equals(jumpOpCode) || instruction.substring(0, 4).equals(jnzOpCode)) {
-                String address=nameMap.get(instruction.substring(4));
-                int length=address.length();
-                String newInstr="";
-                if(instruction.substring(0, 4).equals(jumpOpCode))
-                    newInstr=jumpOpCode;
-                else
-                    newInstr=jnzOpCode;
-
-                for(int j=0; j<12-length; j++)
-                    newInstr+="0";
-                newInstr+=address;
-                codeList.set(indexes.get(i), newInstr);
-            }
-            else {
-                if(isNumeric(instruction.substring(4, 6))) {
-                    String address=nameMap.get(instruction.substring(6));
-                    String newInstr=instruction.substring(0,6);
-                    for(int j=0; j<10-address.length(); j++)
-                        newInstr+="0";
-                    newInstr+=address;
-                    codeList.set(indexes.get(i), newInstr);
-                }else {
-                    int index=firstIndex(instruction);
-                    String address=nameMap.get(instruction.substring(4,index));
-                    String newInstr=instruction.substring(0,4);
-                    for(int j=0; j<10-address.length(); j++)
-                        newInstr+="0";
-                    newInstr+=address;
-                    newInstr+=instruction.substring(index);
-                    codeList.set(indexes.get(i), newInstr);
-                }
-
-            }
-        }
         return codeList;
     }
-    public static ArrayList<String>compare(String[]array){
-        ArrayList<String>codeList=new ArrayList<String>();
-        String tmp="";
 
-        if(array[2].contains("[") || isNumeric(array[2])) {
-
-            String reg=array[1].substring(0, array[1].length()-1);
-            String loc="";
-            if(array[2].contains("["))
-                loc=array[2].substring(1, array[2].length()-1);
-            else
-                loc=array[2];
-
-            tmp=loadOpCode+""+R3.getAddress()+""+loc;
-            codeList.add(tmp);
-            tmp="";
-
-            if(reg.equals("R1"))
-                tmp=cmpOpCode+"0000"+R1.getAddress()+"0000"+R3.getAddress();
-            else
-                tmp=cmpOpCode+"0000"+R2.getAddress()+"0000"+R3.getAddress();
-            codeList.add(tmp);
-        }
-        else {
-            tmp=cmpOpCode+"0000"+R1.getAddress()+"0000"+R2.getAddress();
-            codeList.add(tmp);
-        }
-        return codeList;
-    }
     public static ArrayList<String> operations(String[] array) {
 
         ArrayList<String>codeList=new ArrayList<String>();
         String tmp="";
 
-        if(array[2].contains("[") || isNumeric(array[2])) {
+        if(isNumeric(array[2])) {
 
             String reg=array[1].substring(0, array[1].length()-1);
-            String loc="";
-            if(array[2].contains("["))
-                loc=array[2].substring(1, array[2].length()-1);
-            else
-                loc=array[2];
+            String broj="";
+            broj=array[2];
 
-            tmp=loadOpCode+""+R3.getAddress()+""+loc;
+            tmp=loadOpCode+""+R3.getAddress()+""+broj;
             codeList.add(tmp);
             tmp="";
 
@@ -348,32 +199,14 @@ public class Assembler {
         }
         return codeList;
     }
-
-    public static boolean isNumeric(String string) {
-
-        try {
-            int intValue = Integer.parseInt(string);
-            return true;
-        }catch (NumberFormatException e) {
-
-        }
-        return false;
-    }
     public static String loadOrStore(String[] array) {
         String string=array[2];
         String tmp="";
 
-        if(string.contains("[")) {
-            String reg=array[1].substring(0,array[1].length()-1);
+        if(isNumeric(string)) {
+            String reg=array[1].substring(0,array[1].length()-1); //skine se , poslije naziva registra
             if(reg.equals("R1"))
-                tmp=loadOpCode+""+R1.getAddress()+""+array[2].substring(1, array[2].length()-1);
-            else
-                tmp=loadOpCode+""+R2.getAddress()+""+array[2].substring(1, array[2].length()-1);
-        }
-        else if(isNumeric(string)) {
-            String reg=array[1].substring(0,array[1].length()-1);
-            if(reg.equals("R1"))
-                tmp=loadOpCode+""+R1.getAddress()+""+array[2];
+                tmp=loadOpCode+""+R1.getAddress()+""+array[2];   //   0010|10|2
             else
                 tmp=loadOpCode+""+R2.getAddress()+""+array[2];
         }
@@ -387,6 +220,17 @@ public class Assembler {
         return tmp;
     }
 
+    public static boolean isNumeric(String string) {
+
+        try {
+            int intValue = Integer.parseInt(string);
+            return true;
+        }catch (NumberFormatException e) {
+
+        }
+        return false;
+    }
+
     public static String decToBinary(int n){
         String binaryNumber="";
         int[] binaryNum = new int[1000];
@@ -397,15 +241,11 @@ public class Assembler {
             n = n / 2;
             i++;
         }
+        //TODO napise unazad u niz, pa ih treba napisati u obrnutom redoslijedu
         for (int j = i - 1; j >= 0; j--)
             binaryNumber+=String.valueOf(binaryNum[j]);
 
         return binaryNumber;
     }
-    public static int firstIndex(String string) {
-        for(int i=4; i<string.length(); i++)
-            if(string.charAt(i) >='0' && string.charAt(i) <='9')
-                return i;
-        return -1;
-    }
+
 }
